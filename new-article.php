@@ -1,33 +1,44 @@
 <?php
 
+require 'includes/database.php';
+
+$errors = [];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    require 'includes/database.php';
+    if ($_POST['title'] == '') {
+        $errors[] = 'Title is required';
+    }
+    if ($_POST['content'] == '') {
+        $errors[] = 'Content is required';
+    }
 
-    $conn = getDB();
+    if (empty($errors)) {
 
-    $sql = "INSERT INTO article (title, content, published_at)
-            VALUES (?, ?, ?)";
+        $conn = getDB();
 
-    $stmt = mysqli_prepare($conn, $sql);
+        $sql = "INSERT INTO article (title, content, published_at) VALUES (?, ?, ?)";
 
-    if ($stmt === false) {
+        $stmt = mysqli_prepare($conn, $sql);
 
-        echo mysqli_error($conn);
+        if ($stmt === false) {
 
-    } else {
-
-        mysqli_stmt_bind_param($stmt, "sss", $_POST['title'], $_POST['content'], $_POST['published_at']);
-
-        if (mysqli_stmt_execute($stmt)) {
-
-            $id = mysqli_insert_id($conn);
-            echo "Inserted record with ID: $id";
+            echo mysqli_error($conn);
 
         } else {
 
-            echo mysqli_stmt_error($stmt);
+            mysqli_stmt_bind_param($stmt, "sss", $_POST['title'], $_POST['content'], $_POST['published_at']);
 
+            if (mysqli_stmt_execute($stmt)) {
+
+                $id = mysqli_insert_id($conn);
+                echo "Inserted record with ID: $id";
+
+            } else {
+
+                echo mysqli_stmt_error($stmt);
+
+            }
         }
     }
 }
@@ -36,6 +47,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php require 'includes/header.php'; ?>
 
 <h2>New article</h2>
+
+<?php if (! empty($errors)) : ?>
+    <ul>
+        <?php foreach ($errors as $error) : ?>
+            <li><?= $error ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 
 <form method="post">
 
