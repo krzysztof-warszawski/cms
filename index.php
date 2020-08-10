@@ -26,7 +26,7 @@ if ($results === false) {
         <?php foreach ($articles as $article): ?>
             <li>
                 <article>
-                    <h2><?= $article['title']; ?></a></h2>
+                    <h2><?php require 'includes/footer.php' ?><?= $article['title']; ?></a></h2>
                     <p><?= $article['content']; ?></p>
                 </article>
             </li>
