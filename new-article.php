@@ -2,6 +2,7 @@
 
 require 'includes/database.php';
 require 'includes/article.php';
+require 'includes/url.php';
 
 $title = '';
 $content = '';
@@ -39,8 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $id = mysqli_insert_id($conn);
 
-                header("Location: article.php?id=$id");
-                exit;
+                redirect("article.php?id=$id");
 
             } else {
 
