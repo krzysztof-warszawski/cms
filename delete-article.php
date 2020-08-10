@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if (mysqli_stmt_execute($stmt)) {
 
-            redirect("/index.php");
+            redirect("index.php");
 
         } else {
 

@@ -1,7 +1,7 @@
 <?php if (! empty($errors)) : ?>
     <ul>
         <?php foreach ($errors as $error) : ?>
-            <li><?= $error ?></li>    
+            <li><?= $error ?></li>
         <?php endforeach; ?>
     </ul>
 <?php endif; ?>
@@ -20,7 +20,7 @@
 
     <div>
         <label for="published_at">Publication date and time</label>
-        <input type="datetime-local" name="published_at" id="published_at" value="<?= htmlspecialchars($published_at); ?>">
+        <input type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($published_at); ?>">
     </div>
 
     <button>Save</button>
