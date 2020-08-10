@@ -1,6 +1,6 @@
 <?php
 
-require 'classes/Url.php';
+require 'includes/init.php';
 
 session_start();
 
