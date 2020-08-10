@@ -2,7 +2,7 @@
 
 require 'classes/Database.php';
 require 'classes/User.php';
-require 'includes/url.php';
+require 'classes/Url.php';
 
 session_start();
 
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $_SESSION['is_logged_in'] = true;
 
-        redirect('index');
+        Url::redirect('index');
 
     } else {
 
