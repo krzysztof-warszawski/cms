@@ -1,8 +1,10 @@
 <?php
 
-require 'includes/init.php';
+require '../includes/init.php';
 
-$conn = require 'includes/db.php';
+Auth::requireLogin();
+
+$conn = require '../includes/db.php';
 
 if (isset($_GET['id'])) {
 
@@ -25,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-<?php require 'includes/header.php'; ?>
+<?php require '../includes/header.php'; ?>
 
 <h2>Delete article</h2>
 
@@ -38,4 +40,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </form>
 
-<?php require 'includes/footer.php'; ?>
+<?php require '../includes/footer.php'; ?>

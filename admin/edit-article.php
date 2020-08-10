@@ -1,8 +1,10 @@
 <?php
 
-require 'includes/init.php';
+require '../includes/init.php';
 
-$conn = require 'includes/db.php';
+Auth::requireLogin();
+
+$conn = require '../includes/db.php';
 
 if (isset($_GET['id'])) {
 
@@ -28,10 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-<?php require 'includes/header.php'; ?>
+<?php require '../includes/header.php'; ?>
 
 <h2>Edit article</h2>
 
-<?php require 'includes/article-form.php'; ?>
+<?php require '../includes/article-form.php'; ?>
 
-<?php require 'includes/footer.php'; ?>
+<?php require '../includes/footer.php'; ?>
