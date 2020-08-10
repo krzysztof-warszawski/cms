@@ -4,6 +4,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     require 'includes/database.php';
 
+    $conn = getDB();
+
     $sql = "INSERT INTO article (title, content, published_at)
             VALUES (?, ?, ?)";
 

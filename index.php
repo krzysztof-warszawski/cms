@@ -2,6 +2,8 @@
 
 require 'includes/database.php';
 
+$conn = getDB();
+
 $sql = "SELECT *
         FROM article
         ORDER BY published_at;";
@@ -15,7 +17,6 @@ if ($results === false) {
 }
 
 ?>
-
 <?php require 'includes/header.php' ?>
 
 <?php if (empty($articles)): ?>
@@ -36,4 +37,3 @@ if ($results === false) {
 <?php endif; ?>
 
 <?php require 'includes/footer.php' ?>
-
