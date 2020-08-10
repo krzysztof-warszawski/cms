@@ -9,3 +9,4 @@
 /.idea/
 /cms.iml
 /includes/database.php
+/classes/Database.php
