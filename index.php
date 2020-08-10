@@ -17,7 +17,7 @@ if ($results === false) {
 }
 
 ?>
-<?php require 'includes/header.php' ?>
+<?php require 'includes/header.php'; ?>
 
 <?php if (empty($articles)): ?>
     <p>No articles found.</p>
@@ -27,8 +27,8 @@ if ($results === false) {
         <?php foreach ($articles as $article): ?>
             <li>
                 <article>
-                    <h2><a href="article.php?id=<?= $article['id']; ?>"><?= $article['title']; ?></a></h2>
-                    <p><?= $article['content']; ?></p>
+                    <h2><a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a></h2>
+                    <p><?= htmlspecialchars($article['content']); ?></p>
                 </article>
             </li>
         <?php endforeach; ?>
@@ -36,4 +36,4 @@ if ($results === false) {
 
 <?php endif; ?>
 
-<?php require 'includes/footer.php' ?>
+<?php require 'includes/footer.php'; ?>
