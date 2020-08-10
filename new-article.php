@@ -24,8 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $date_time = date_create_from_format('Y-m-d H:i:s', $published_at);
 
         if ($date_time === false) {
+
             $errors[] = 'Invalid date and time';
+
         } else {
+
             $date_errors = date_get_last_errors();
 
             if ($date_errors['warning_count'] > 0) {
@@ -57,7 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (mysqli_stmt_execute($stmt)) {
 
                 $id = mysqli_insert_id($conn);
-                echo "Inserted record with ID: $id";
+
+                header("Location: article.php?id=$id");
+                exit;
 
             } else {
 
@@ -65,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             }
         }
-
     }
 }
 
@@ -96,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <div>
         <label for="published_at">Publication date and time</label>
-        <input type="datetime-local" name="published_at" id="published_at" value="<?= htmlspecialchars($published_at); ?>">
+        <input type="text" name="published_at" id="published_at" value="<?= htmlspecialchars($published_at); ?>">
     </div>
 
     <button>Add</button>
