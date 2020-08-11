@@ -4,7 +4,7 @@ require 'includes/init.php';
 
 $conn = require 'includes/db.php';
 
-$paginator = new Paginator($_GET['page'] ?? 1,4);
+$paginator = new Paginator($_GET['page'] ?? 1,4, Article::getTotal($conn));
 
 $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
 
@@ -38,7 +38,11 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
                 <?php endif; ?>
             </li>
             <li>
-                <a href="?page=<?= $paginator->next; ?>">Next</a>
+                <?php if ($paginator->next): ?>
+                    <a href="?page=<?= $paginator->next; ?>">Next</a>
+                <?php else: ?>
+                    Next
+                <?php endif; ?>
             </li>
         </ul>
     </nav>

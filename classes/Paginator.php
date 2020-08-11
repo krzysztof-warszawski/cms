@@ -36,9 +36,9 @@ class Paginator
      * @param integer $page Page number
      * @param integer $records_per_page Number of records per page
      *
-     * @return void
+     * @param integer $total_records Number of all records
      */
-    public function __construct($page, $records_per_page)
+    public function __construct($page, $records_per_page, $total_records)
     {
         $this->limit = $records_per_page;
 
@@ -49,8 +49,10 @@ class Paginator
             ]
         ]);
 
+        $total_records = ceil($total_records / $records_per_page);
+
         $this->previous = $page > 1 ? $page - 1 : null;
-        $this->next = $page + 1;
+        $this->next = $page < $total_records ? $page + 1 : null;
 
         $this->offset = $records_per_page * ($page - 1);
     }
