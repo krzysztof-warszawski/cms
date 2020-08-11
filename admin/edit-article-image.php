@@ -28,9 +28,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             case UPLOAD_ERR_NO_FILE:
                 throw new Exception('No file uploaded');
                 break;
+            case UPLOAD_ERR_INI_SIZE:
+                throw new Exception('File is too large (from the server settings)');
+                break;
             default:
                 throw new Exception('An error occurred');
         }
+
+        if ($_FILES['file']['size'] > 1000000) {
+            throw new Exception('File is too large');
+        }
+
     } catch (Exception $e) {
         echo $e->getMessage();
     }
