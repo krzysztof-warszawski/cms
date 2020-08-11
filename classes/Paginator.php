@@ -20,6 +20,18 @@ class Paginator
     public $offset;
 
     /**
+     * Previous page number
+     * @var integer
+     */
+    public $previous;
+
+    /**
+     * Next page number
+     * @var integer
+     */
+    public $next;
+
+    /**
      * Paginator constructor.
      * @param integer $page Page number
      * @param integer $records_per_page Number of records per page
@@ -36,6 +48,9 @@ class Paginator
                 'min_range' => 1
             ]
         ]);
+
+        $this->previous = $page > 1 ? $page - 1 : null;
+        $this->next = $page + 1;
 
         $this->offset = $records_per_page * ($page - 1);
     }
