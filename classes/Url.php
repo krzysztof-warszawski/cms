@@ -17,7 +17,15 @@ class Url
 
     public static function redirect($path) {
 
-        header("Location: $path");
+        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') {
+            $protocol = 'https';
+        } else {
+            $protocol = 'http';
+        }
+
+        header("Location: $protocol://" . $_SERVER['HTTP_HOST'] . "/cms/$path");
+
+//        header("Location: $path");
         exit;
     }
 }
