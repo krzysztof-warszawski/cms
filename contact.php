@@ -41,15 +41,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
 
             $mail->isSMTP();
-            $mail->Host = 'your mail server';
+            $mail->Host = SMTP_HOST;
             $mail->SMTPAuth = true;
-            $mail->Username = 'username';
-            $mail->Password = 'password';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+            $mail->Username = SMTP_USER;
+            $mail->Password = SMTP_PASS;
+            $mail->SMTPSecure = SMTP_SECURE;
+            $mail->Port = SMTP_PORT;
 
-            $mail->setFrom('sender@example.com');
-            $mail->addAddress('recipient@example.com');
+            $mail->setFrom(SMTP_FROM);
+            $mail->addAddress(SMTP_TO);
             $mail->addReplyTo($email);
             $mail->Subject = $subject;
             $mail->Body = $message;
