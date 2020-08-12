@@ -55,12 +55,12 @@ $("button.publish").on("click", function (e) {
         });
 });
 
-// /**
-//  * Show the date and time picker for the published at field
-//  */
-// $('#published_at').datetimepicker({
-//     format:'Y-m-d H:i:s'
-// });
+/**
+ * Show the date and time picker for the published at field
+ */
+$('#published_at').datetimepicker({
+    format:'Y-m-d H:i:s'
+});
 
 $("#formContact").validate({
     rules: {
