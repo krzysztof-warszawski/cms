@@ -17,6 +17,11 @@ if (isset($_GET['id'])) {
     <article>
         <h2><?= htmlspecialchars($article[0]['title']); ?></h2>
 
+        <time datetime="<?php $article[0]['published_at'] ?>"><?php
+            $datetime = new DateTime($article[0]['published_at']);
+            echo $datetime->format("j F, Y")
+        ?></time>
+
         <?php if ($article[0]['category_name']): ?>
             <p>Categories:
                 <?php foreach ($article as $a): ?>

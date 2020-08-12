@@ -23,6 +23,11 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset, true)
                 <article>
                     <h2><a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a></h2>
 
+                    <time datetime="<?php $article['published_at'] ?>"><?php
+                        $datetime = new DateTime($article['published_at']);
+                        echo $datetime->format("j F, Y")
+                    ?></time>
+
                     <?php if ($article['category_names']): ?>
                         <p>Categories:
                             <?php foreach ($article['category_names'] as $name): ?>
