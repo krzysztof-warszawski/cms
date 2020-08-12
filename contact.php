@@ -1,10 +1,18 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/PHPMailer/src/Exception.php';
+require 'vendor/PHPMailer/src/PHPMailer.php';
+require 'vendor/PHPMailer/src/SMTP.php';
+
 require 'includes/init.php';
 
 $email = '';
 $subject = '';
 $message = '';
+$sent = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -28,6 +36,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($errors)) {
 
+        $mail = new PHPMailer(true);
+
+        try {
+
+            $mail->isSMTP();
+            $mail->Host = 'your mail server';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'username';
+            $mail->Password = 'password';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+
+            $mail->setFrom('sender@example.com');
+            $mail->addAddress('recipient@example.com');
+            $mail->addReplyTo($email);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+
+            $mail->send();
+
+            $sent = true;
+
+        } catch (Exception $e) {
+
+            $errors[] = $mail->ErrorInfo;
+
+        }
     }
 }
 
@@ -36,33 +71,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <h2>Contact</h2>
 
-<?php if (! empty($errors)) : ?>
-    <ul>
-        <?php foreach ($errors as $error) : ?>
-            <li><?= $error ?></li>
-        <?php endforeach; ?>
-    </ul>
+<?php if ($sent) : ?>
+    <p>Message sent.</p>
+<?php else: ?>
+
+    <?php if (! empty($errors)) : ?>
+        <ul>
+            <?php foreach ($errors as $error) : ?>
+                <li><?= $error ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+
+    <form method="post" id="formContact">
+
+        <div class="form-group">
+            <label for="email">Your email</label>
+            <input class="form-control" name="email" id="email" type="email" placeholder="Your email" value="<?= htmlspecialchars($email) ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input class="form-control" name="subject" id="subject" placeholder="Subject" value="<?= htmlspecialchars($subject) ?>">
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" name="message" id="message" placeholder="Message"><?= htmlspecialchars($message) ?></textarea>
+        </div>
+
+        <button class="btn btn-primary btn">Send</button>
+
+    </form>
+
 <?php endif; ?>
-
-<form method="post" id="formContact">
-
-    <div class="form-group">
-        <label for="email">Your email</label>
-        <input class="form-control" name="email" id="email" type="email" placeholder="Your email" value="<?= htmlspecialchars($email) ?>">
-    </div>
-
-    <div class="form-group">
-        <label for="subject">Subject</label>
-        <input class="form-control" name="subject" id="subject" placeholder="Subject" value="<?= htmlspecialchars($subject) ?>">
-    </div>
-
-    <div class="form-group">
-        <label for="message">Message</label>
-        <textarea class="form-control" name="message" id="message" placeholder="Message"><?= htmlspecialchars($message) ?></textarea>
-    </div>
-
-    <button class="btn btn-primary btn">Send</button>
-
-</form>
 
 <?php require 'includes/footer.php'; ?>
