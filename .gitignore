@@ -10,3 +10,6 @@
 /cms.iml
 /includes/database.php
 /classes/Database.php
+/config/config.php
+/config/.htaccess
+/.gitignore

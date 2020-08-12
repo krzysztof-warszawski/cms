@@ -52,6 +52,9 @@ $("button.publish").on("click", function (e) {
     })
         .done(function(data) {
             button.parent().html(data);
+        })
+        .fail(function (data) {
+            alert("An error occurred");
         });
 });
 
