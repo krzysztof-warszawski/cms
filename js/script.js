@@ -1,3 +1,6 @@
+/**
+ * Send links of class "delete" via post after a confirmation dialog
+ */
 $("a.delete").on("click", function (e) {
 
     e.preventDefault();
@@ -11,10 +14,16 @@ $("a.delete").on("click", function (e) {
     }
 });
 
+/**
+ * Add a method to validate a date time string
+ */
 $.validator.addMethod("dateTime", function (value, element) {
     return (value == "") || !isNaN(Date.parse(value));
 }, "Must be a valid date and time");
 
+/**
+ * Validate the article form
+ */
 $("#formArticle").validate({
     rules: {
         title: {
@@ -29,6 +38,9 @@ $("#formArticle").validate({
     }
 });
 
+/**
+ * Handle the publish button for publishing articles
+ */
 $("button.publish").on("click", function (e) {
 
     var id = $(this).data('id');
@@ -41,4 +53,26 @@ $("button.publish").on("click", function (e) {
         .done(function(data) {
             button.parent().html(data);
         });
+});
+
+// /**
+//  * Show the date and time picker for the published at field
+//  */
+// $('#published_at').datetimepicker({
+//     format:'Y-m-d H:i:s'
+// });
+
+$("#formContact").validate({
+    rules: {
+        email: {
+            required: true,
+            email: true
+        },
+        subject: {
+            required: true
+        },
+        message: {
+            required: true
+        }
+    }
 });
