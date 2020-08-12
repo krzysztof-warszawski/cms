@@ -21,7 +21,7 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
     <p>No articles found.</p>
 <?php else: ?>
 
-    <table>
+    <table class="table">
         <thead>
             <th>Title</th>
             <th>Published</th>
@@ -38,7 +38,7 @@ $articles = Article::getPage($conn, $paginator->limit, $paginator->offset);
                             <time><?= $article['published_at'] ?></time>
                         <?php else: ?>
                             Unpublished
-                            <button class="publish" data-id="<?= $article['id'] ?>">Publish</button>
+                            <button class="publish btn btn-info btn-sm" data-id="<?= $article['id'] ?>">Publish</button>
                         <?php endif; ?>
                     </td>
                 </tr>

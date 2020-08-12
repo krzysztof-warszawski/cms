@@ -8,5 +8,6 @@
 
     <script src="/cms/js/script.js"></script>
 
+    </div>
 </body>
 </html>
